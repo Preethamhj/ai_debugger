@@ -1,0 +1,26 @@
+Module(
+  body=[
+    Expr(
+      value=Call(
+        func=Name(
+          id='print',
+          ctx=Load(),
+          lineno=1,
+          col_offset=0,
+          end_lineno=1,
+          end_col_offset=5),
+        args=[
+          Constant(
+            value='hello',
+            lineno=1,
+            col_offset=6,
+            end_lineno=1,
+            end_col_offset=13)],
+        lineno=1,
+        col_offset=0,
+        end_lineno=1,
+        end_col_offset=14),
+      lineno=1,
+      col_offset=0,
+      end_lineno=1,
+      end_col_offset=14)])

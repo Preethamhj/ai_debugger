@@ -1,0 +1,13 @@
+[
+  {
+    "node_type": "Module"
+  },
+  {
+    "node_type": "Name",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 1,
+    "end_col_offset": 6,
+    "id": "string"
+  }
+]

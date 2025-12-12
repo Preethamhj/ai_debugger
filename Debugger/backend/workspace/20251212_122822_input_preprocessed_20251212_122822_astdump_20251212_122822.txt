@@ -1,0 +1,15 @@
+Module(
+  body=[
+    Expr(
+      value=Name(
+        id='string',
+        ctx=Load(),
+        lineno=1,
+        col_offset=0,
+        end_lineno=1,
+        end_col_offset=6),
+      lineno=1,
+      col_offset=0,
+      end_lineno=1,
+      end_col_offset=6)],
+  type_ignores=[])

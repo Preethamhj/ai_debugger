@@ -1,0 +1,28 @@
+[
+  {
+    "node_type": "Module"
+  },
+  {
+    "node_type": "Call",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 1,
+    "end_col_offset": 18,
+    "func": "print"
+  },
+  {
+    "node_type": "Name",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 1,
+    "end_col_offset": 5,
+    "id": "print"
+  },
+  {
+    "node_type": "Constant",
+    "lineno": 1,
+    "col_offset": 6,
+    "end_lineno": 1,
+    "end_col_offset": 17
+  }
+]

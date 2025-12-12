@@ -1,0 +1,97 @@
+[
+  {
+    "node_type": "Module"
+  },
+  {
+    "node_type": "Assign",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 1,
+    "end_col_offset": 6,
+    "targets": [
+      "x"
+    ]
+  },
+  {
+    "node_type": "Assign",
+    "lineno": 2,
+    "col_offset": 0,
+    "end_lineno": 2,
+    "end_col_offset": 10,
+    "targets": [
+      "y"
+    ]
+  },
+  {
+    "node_type": "Name",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 1,
+    "end_col_offset": 1,
+    "id": "x"
+  },
+  {
+    "node_type": "Constant",
+    "lineno": 1,
+    "col_offset": 4,
+    "end_lineno": 1,
+    "end_col_offset": 6
+  },
+  {
+    "node_type": "Name",
+    "lineno": 2,
+    "col_offset": 0,
+    "end_lineno": 2,
+    "end_col_offset": 1,
+    "id": "y"
+  },
+  {
+    "node_type": "BinOp",
+    "lineno": 2,
+    "col_offset": 4,
+    "end_lineno": 2,
+    "end_col_offset": 10
+  },
+  {
+    "node_type": "Call",
+    "lineno": 3,
+    "col_offset": 0,
+    "end_lineno": 3,
+    "end_col_offset": 8,
+    "func": "print"
+  },
+  {
+    "node_type": "Name",
+    "lineno": 2,
+    "col_offset": 4,
+    "end_lineno": 2,
+    "end_col_offset": 5,
+    "id": "x"
+  },
+  {
+    "node_type": "Add"
+  },
+  {
+    "node_type": "Constant",
+    "lineno": 2,
+    "col_offset": 8,
+    "end_lineno": 2,
+    "end_col_offset": 10
+  },
+  {
+    "node_type": "Name",
+    "lineno": 3,
+    "col_offset": 0,
+    "end_lineno": 3,
+    "end_col_offset": 5,
+    "id": "print"
+  },
+  {
+    "node_type": "Name",
+    "lineno": 3,
+    "col_offset": 6,
+    "end_lineno": 3,
+    "end_col_offset": 7,
+    "id": "y"
+  }
+]

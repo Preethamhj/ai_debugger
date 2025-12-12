@@ -1,0 +1,68 @@
+[
+  {
+    "node_type": "Module"
+  },
+  {
+    "node_type": "FunctionDef",
+    "lineno": 1,
+    "col_offset": 0,
+    "end_lineno": 2,
+    "end_col_offset": 16,
+    "name": "add",
+    "args": [
+      "a",
+      "b"
+    ]
+  },
+  {
+    "node_type": "arguments"
+  },
+  {
+    "node_type": "Return",
+    "lineno": 2,
+    "col_offset": 4,
+    "end_lineno": 2,
+    "end_col_offset": 16,
+    "value": "a + b"
+  },
+  {
+    "node_type": "arg",
+    "lineno": 1,
+    "col_offset": 8,
+    "end_lineno": 1,
+    "end_col_offset": 9
+  },
+  {
+    "node_type": "arg",
+    "lineno": 1,
+    "col_offset": 11,
+    "end_lineno": 1,
+    "end_col_offset": 12
+  },
+  {
+    "node_type": "BinOp",
+    "lineno": 2,
+    "col_offset": 11,
+    "end_lineno": 2,
+    "end_col_offset": 16
+  },
+  {
+    "node_type": "Name",
+    "lineno": 2,
+    "col_offset": 11,
+    "end_lineno": 2,
+    "end_col_offset": 12,
+    "id": "a"
+  },
+  {
+    "node_type": "Add"
+  },
+  {
+    "node_type": "Name",
+    "lineno": 2,
+    "col_offset": 15,
+    "end_lineno": 2,
+    "end_col_offset": 16,
+    "id": "b"
+  }
+]

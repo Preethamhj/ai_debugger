@@ -1,0 +1,17 @@
+# --------------------
+# CORE BACKEND
+# --------------------
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+
+# --------------------
+# LLM TRAINING STACK (except torch, install manually)
+# --------------------
+
+# --------------------
+# UTILITIES
+# --------------------
+astor            # if used for AST conversions (optional)
+orjson           # faster JSON (optional)
