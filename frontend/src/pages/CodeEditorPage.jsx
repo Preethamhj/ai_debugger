@@ -3,7 +3,6 @@ import React, { useState, useCallback } from "react";
 import MonacoEditorWrapper from "../components/MonacoEditorWrapper.jsx";
 import LogPanel from "../components/LogPanel.jsx";
 import axios from "axios";
-import clsx from "clsx";
 
 // Make sure this matches your FastAPI route exactly:
 const API_URL = `http://127.0.0.1:8000/process_code`;
@@ -101,7 +100,8 @@ function CodeEditorPage() {
   //     setLoading(false);
   //   }
   // };
-  
+
+
   const handleCompile = async () => {
   setLoading(true);
   setLogs([]);
@@ -132,7 +132,6 @@ function CodeEditorPage() {
   }
 };
 
- 
   const handleFix = () => {
     // (your simulated fix logic — left mostly as-is)
     const simulatedError = "ERROR: Missing argument 'c' in function call on line 6.";

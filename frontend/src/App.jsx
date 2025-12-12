@@ -7,8 +7,7 @@ import CodeEditorPage from './pages/CodeEditorPage.jsx';
 function App() {
   return (
     <Router>
-        {/* Removed the theme-breaking header component */}
-        {/* Set container to full screen height and width with no padding */}
+        {/* Removed header and padding to support the full-screen dynamic theme */}
         <div className="h-screen w-screen"> 
             <Routes>
                 <Route path="/" element={<HomePage />} />
