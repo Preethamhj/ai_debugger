@@ -20,3 +20,4 @@ function MonacoEditorWrapper({ code, setCode, language = 'python' }) {
 }
 
 export default MonacoEditorWrapper;
+

@@ -14,156 +14,80 @@ function CodeEditorPage() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // MODAL STATES
+  const [showFixModal, setShowFixModal] = useState(false);
+  const [userIntent, setUserIntent] = useState("");
+  const [terminalOutput, setTerminalOutput] = useState("");
+  const [intentLoading, setIntentLoading] = useState(false);
+
   const logMessage = useCallback((message) => {
     setLogs((prev) => [...prev, `${new Date().toLocaleTimeString()} - ${message}`]);
   }, []);
 
-  // Compile / run -> send to backend /process_code
-  // const handleCompile = async () => {
-  //   if (loading) return;
-  //   logMessage("Starting processing...");
-  //   logMessage(`Sending code to API: http://127.0.0.1:8000/process_code`);
-  //   setLoading(true);
-  //   console.log("code :", code);
-  //   try {
-  //     const response = await axios.post("http://127.0.0.1:8000/process_code", { "code": code });
-      
-  //     // Response status & body
-  //     logMessage(`API Response Status: ${response.status}`);
-  //     const data = response.data;
-  //     console.log("Backend response:", data);
-
-  //     if (data?.status === "success") {
-  //       // Show interpreter output (stdout/stderr/return_code)
-  //       const pyOut = data.python_output || {};
-  //       logMessage("Python stdout:");
-  //       if (pyOut.stdout) {
-  //         // split long output into lines
-  //         pyOut.stdout.split("\n").forEach((line) => {
-  //           if (line.trim() !== "") logMessage(`  stdout: ${line}`);
-  //         });
-  //       } else {
-  //         logMessage("  (no stdout)");
-  //       }
-
-  //       if (pyOut.stderr) {
-  //         pyOut.stderr.split("\n").forEach((line) => {
-  //           if (line.trim() !== "") logMessage(`  stderr: ${line}`);
-  //         });
-  //       }
-
-  //       logMessage(`Python return code: ${pyOut.return_code ?? "(unknown)"}`);
-
-  //       // Show AST info if present (short summary)
-  //       if (data.ast_dump) {
-  //         logMessage("AST dump (summary):");
-  //         const astDump = String(data.ast_dump);
-  //         // limit to first 10 lines to avoid flooding logs
-  //         astDump.split("\n").slice(0, 10).forEach((l) => logMessage(`  ${l}`));
-  //         if (astDump.split("\n").length > 10) logMessage("  ... (AST truncated in UI)");
-  //       } else {
-  //         logMessage("No AST dump returned.");
-  //       }
-
-  //       // Add success alert
-  //       alert("Code processed successfully — check the logs for output & AST info.");
-  //     } else {
-  //       // backend returned an error-like payload
-  //       logMessage(`Backend reported error: ${data?.message ?? "unknown error"}`);
-  //       if (data?.details) {
-  //         logMessage(`Details: ${JSON.stringify(data.details).slice(0, 1000)}`);
-  //       }
-  //       alert("Processing failed — check logs for details.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Axios error:", error);
-  //     logMessage("ERROR: Failed to connect or process code.");
-
-  //     // Distinguish network / connection refused errors vs server errors
-  //     if (error.code === "ECONNREFUSED" || error.message?.includes("Network Error")) {
-  //       logMessage("FATAL: Connection refused. Is the FastAPI server running on http://localhost:8000 ?");
-  //       alert("Failed: Backend server is not running or unreachable.");
-  //     } else if (error.response) {
-  //       // server responded with error code
-  //       logMessage(`Server returned ${error.response.status}: ${JSON.stringify(error.response.data)}`);
-  //       if (error.response.status === 400) {
-  //         logMessage(`Validation error: ${error.response.data.detail || "Invalid request format"}`);
-  //         alert(`Bad Request (400): ${error.response.data.detail || "Code validation failed"}`);
-  //       } else {
-  //         alert(`Server error: ${error.response.status} — see logs.`);
-  //       }
-  //     } else {
-  //       logMessage(`Unknown error: ${error.message}`);
-  //       alert("An unknown error occurred. See console/logs.");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
+  // -----------------------------------------
+  // PROCESS CODE
+  // -----------------------------------------
   const handleCompile = async () => {
-  setLoading(true);
-  setLogs([]);
+    setLoading(true);
+    setLogs([]);
 
-  try {
-    logMessage("> Starting processing...");
+    try {
+      logMessage("> Starting processing...");
 
-    // 1) CALL /process_code
-    logMessage("> Sending code to API: /process_code");
-    await axios.post("http://127.0.0.1:8000/process_code", { code });
+      // 1) CALL /process_code
+      logMessage("> Sending code to API: /process_code");
+      await axios.post("http://127.0.0.1:8000/process_code", { code });
 
-    logMessage("> Process Code completed.");
+      logMessage("> Process Code completed.");
 
-    // 2) NOW CALL /logs
-    logMessage("> Fetching logs from /logs...");
-    const logRes = await axios.get("http://127.0.0.1:8000/logs");
+      // 2) CALL /logs
+      logMessage("> Fetching logs from /logs...");
+      const logRes = await axios.get("http://127.0.0.1:8000/logs");
 
-    logMessage("> Logs fetched.");
+      logMessage("> Logs fetched.");
 
-    // 3) DISPLAY ONLY /logs OUTPUT
-    logMessage("> Final Log Output:");
-    logMessage(JSON.stringify(logRes.data, null, 2));
+      // 3) DISPLAY /logs OUTPUT
+      logMessage("> Final Log Output:");
+      logMessage(JSON.stringify(logRes.data, null, 2));
 
-  } catch (e) {
-    logMessage("ERROR calling APIs: " + e);
-  } finally {
-    setLoading(false);
-  }
-};
-
-  const handleFix = () => {
-    // (your simulated fix logic — left mostly as-is)
-    const simulatedError = "ERROR: Missing argument 'c' in function call on line 6.";
-    const simulatedPatch = "def add(a, b):\n  return a + b";
-
-    logMessage("Sending code to AI for fix (simulated)...");
-    const alertMessage = `
---- AI FIX SUGGESTED ---
-
-You have an error:
-${simulatedError}
-
-Suggested Patch Code (Simulated):
-----------------------------------
-${simulatedPatch}
-----------------------------------
-
-Do you wish to apply this patch? (Click OK to apply, Cancel to dismiss)
-    `;
-    const shouldApplyFix = window.confirm(alertMessage);
-
-    if (shouldApplyFix) {
-      const fixedCode = code.replace("add", "subtract");
-      logMessage("Patch received and applied successfully.");
-      setCode(fixedCode);
-      alert("Patch Applied! Check the code editor for the change.");
-    } else {
-      logMessage("Patch application canceled by user.");
-      alert("Fix operation canceled.");
+    } catch (e) {
+      logMessage("ERROR calling APIs: " + e);
+    } finally {
+      setLoading(false);
     }
   };
 
+  // -----------------------------------------
+  // OPEN FIX ERROR MODAL
+  // -----------------------------------------
+  const handleFix = () => {
+    setShowFixModal(true);
+  };
+
+  // -----------------------------------------
+  // CALL /user-intent
+  // -----------------------------------------
+  const callUserIntent = async () => {
+    try {
+      setIntentLoading(true);
+      setTerminalOutput("Running...");
+
+      const res = await axios.post("http://127.0.0.1:8000/userIntent", {
+        intent: userIntent,
+        code: code,
+      });
+
+      setTerminalOutput(JSON.stringify(res.data, null, 2));
+    } catch (err) {
+      setTerminalOutput("ERROR:\n" + err);
+    } finally {
+      setIntentLoading(false);
+    }
+  };
+
+  // -----------------------------------------
+  // UI
+  // -----------------------------------------
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Code Editor</h2>
@@ -186,12 +110,55 @@ Do you wish to apply this patch? (Click OK to apply, Cancel to dismiss)
             onClick={handleFix}
             className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
           >
-            Fix Error (Simulated Patch)
+            Fix Error
           </button>
         </div>
 
         <LogPanel logs={logs} />
       </div>
+
+      {/* FIX ERROR MODAL */}
+      {showFixModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white w-[500px] p-6 rounded-lg shadow-lg">
+
+            <h2 className="text-xl font-bold mb-3">Fix Error - Provide Your Intent</h2>
+
+            {/* Input box */}
+            <input
+              type="text"
+              value={userIntent}
+              onChange={(e) => setUserIntent(e.target.value)}
+              placeholder="Describe what you want to fix..."
+              className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+            />
+
+            {/* Buttons */}
+            <div className="flex justify-between mb-4">
+              <button
+                onClick={() => setShowFixModal(false)}
+                className="px-4 py-2 bg-gray-400 text-white rounded"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={callUserIntent}
+                disabled={intentLoading}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                {intentLoading ? "Processing..." : "Enter"}
+              </button>
+            </div>
+
+            {/* Terminal output */}
+            <div className="bg-black text-green-400 font-mono text-sm p-3 rounded h-40 overflow-auto">
+              {terminalOutput || "Output will appear here..."}
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }

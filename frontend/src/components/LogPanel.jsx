@@ -23,4 +23,4 @@ function LogPanel({ logs }) {
     );
 }
 
-export default LogPanel;
+export default LogPanel;
